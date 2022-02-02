@@ -2,6 +2,7 @@ import pyRofex
 import remarket_auth as ra
 import yfinance as yf
 import market_operations as mo
+from instruments import instruments
 from datetime import datetime
 
 
@@ -18,13 +19,6 @@ cache = {
 }
 
 interest_rates = {}
-
-tickers_rofex_spot = {
-    "GGAL/FEB22": "GGAL",
-    "PAMP/FEB22": "PAMP.BA",
-    "YPFD/FEB22": "YPFD.BA",
-    "DLR/FEB22": "ARS=X"
-}
 # Handlers para procesar los mensajes y excepciónes.
 
 def market_data_handler(message):
@@ -47,7 +41,7 @@ def market_data_handler(message):
         print("ASK: ", ask_price)
     
     #Obtengo el precio spot de cada uno de los instrumentos
-    spot_price = mo.get_spot_price(tickers_rofex_spot[symbol])
+    spot_price = mo.get_spot_price(instruments[symbol])
     print("SPOT:", spot_price)
 
     interest_rates[symbol] = {
@@ -89,7 +83,6 @@ def market_data_handler(message):
             cache["hbir_ticker"] = irates_result["hbir_ticker"]
 
         print("TASA IMPLICITA COLOCADORA:", bid_interest_rate, "%")
-    print(cache)
     mo.search_arbitrage_oportunity(cache)
 
 def error_handler(message):
@@ -104,7 +97,7 @@ pyRofex.init_websocket_connection(market_data_handler=market_data_handler,
                                   exception_handler=exception_handler)
 
 # Lista de instrumentos a suscribir
-instruments = ["GGAL/FEB22", "PAMP/FEB22", "YPFD/FEB22", "DLR/FEB22"]
+tickers = ["GGAL/FEB22", "PAMP/FEB22", "YPFD/FEB22", "DLR/FEB22"]
 
 # Defino a que datos me voy a suscribir
 entries = [pyRofex.MarketDataEntry.BIDS,
@@ -112,5 +105,5 @@ entries = [pyRofex.MarketDataEntry.BIDS,
            pyRofex.MarketDataEntry.LAST]
 
 # Recibo datos del mercado
-pyRofex.market_data_subscription(tickers=instruments,
+pyRofex.market_data_subscription(tickers=tickers,
                                  entries=entries)

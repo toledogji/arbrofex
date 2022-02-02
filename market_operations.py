@@ -31,7 +31,8 @@ def interest_rate(spot, future, maturity):
 
 def search_arbitrage_oportunity(cache):
     if(cache["lowest_ask_interest_rate"] < cache["highest_bid_interest_rate"]):
-        print("Oportunidad de arbitraje tomando en", cache["lair_ticker"], "y colocando en", cache["hbir_ticker"])
+        print("Oportunidad de arbitraje tomando en", cache["lair_ticker"], "al", cache["lowest_ask_interest_rate"], 
+                "y colocando en", cache["hbir_ticker"], "al", cache["highest_bid_interest_rate"])
     else:
         print("No hay oportunidad de arbitraje")
 
@@ -46,12 +47,10 @@ def search_interest_rates(interest_rates):
     for ticker, data in interest_rates.items():
         ask_interest_rate = data["ask_interest_rate"]
         bid_interest_rate = data["bid_interest_rate"]
-
-        if(lair_result["lair"] is None or lair_result["lair"] > ask_interest_rate):
+        if(lair_result["lair"] is None or (ask_interest_rate is not None and lair_result["lair"] > ask_interest_rate)):
             lair_result["lair"] = ask_interest_rate
             lair_result["lair_ticker"] = ticker
-        if(lair_result["hbir"] is None or lair_result["hbir"] < bid_interest_rate):
+        if(lair_result["hbir"] is None or (bid_interest_rate is not None and lair_result["hbir"] < bid_interest_rate)):
             lair_result["hbir"] = bid_interest_rate
             lair_result["hbir_ticker"] = ticker
-
     return lair_result
