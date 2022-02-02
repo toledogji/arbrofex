@@ -23,7 +23,7 @@ tickers_rofex_spot = {
     "GGAL/FEB22": "GGAL",
     "PAMP/FEB22": "PAMP.BA",
     "YPFD/FEB22": "YPFD.BA",
-    "DLR/FEB22": "USD/ARS"
+    "DLR/FEB22": "ARS=X"
 }
 # Handlers para procesar los mensajes y excepciónes.
 
@@ -67,7 +67,6 @@ def market_data_handler(message):
             
         if( cache["lair_ticker"] == symbol and 
             cache["lowest_ask_interest_rate"] < ask_interest_rate):
-            print("Not cache")
             irates_result = mo.search_interest_rates(interest_rates)
             cache["lowest_ask_interest_rate"] = irates_result["lair"]
             cache["lair_ticker"] = irates_result["lair_ticker"]
@@ -85,7 +84,6 @@ def market_data_handler(message):
 
         if( cache["hbir_ticker"] == symbol and
             cache["highest_bid_interest_rate"] > bid_interest_rate):
-            print("Not cache")
             irates_result = mo.search_interest_rates(interest_rates)
             cache["highest_bid_interest_rate"] = irates_result["hbir"]
             cache["hbir_ticker"] = irates_result["hbir_ticker"]
