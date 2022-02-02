@@ -1,2 +1,2 @@
 # arbrofex
-Identificador de oportunidades de arbitrajes en mercado de futuros.
+Identificador de oportunidades de arbitraje en mercado de futuros.
