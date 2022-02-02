@@ -14,7 +14,7 @@ para el funcionamiento del programa_
 ### Pre-requisitos 📋
 
 _Se debe setear en el archivo instruments.py los instrumentos con los cuales se quiere trabajar indicando el ticker del futuro como llave y el ticker
-del instrumento en spot como valor (Ej: "GGAL/FEB22": "GGAL"_
+del instrumento en spot correspondiente a Yahoo Finance como valor (Ej: "GGAL/FEB22": "GGAL")_
 
 ```
 instruments = {
