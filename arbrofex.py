@@ -82,6 +82,7 @@ def market_data_handler(message):
 
         print("TASA IMPLICITA COLOCADORA:", bid_interest_rate, "%")
 
+    print("Mejor tasa tomadora", ir_cache["lowest_ask_interest_rate"], ir_cache["lair_ticker"], "Mejor tasa colocadora", ir_cache["highest_bid_interest_rate"], ir_cache["hbir_ticker"] )
     mo.search_arbitrage_oportunity(ir_cache)
 
 def error_handler(message):
