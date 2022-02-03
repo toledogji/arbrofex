@@ -35,10 +35,8 @@ def market_data_handler(message):
     #Printeo los datos para visualizarlos
     print("Ticker:", symbol)
     #print("Maturity:", maturity)
-    if(bid_price is not None):
-        print("BID: ", bid_price)
-    if(ask_price is not None):
-        print("ASK: ", ask_price)
+    print("BID: ", bid_price)
+    print("ASK: ", ask_price)
     
     #Obtengo el precio spot de cada uno de los instrumentos
     spot_price = mo.get_spot_price(instruments[symbol])
