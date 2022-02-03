@@ -13,7 +13,15 @@ para el funcionamiento del programa_
 
 ### Pre-requisitos 📋
 
-_Se debe setear en el archivo instruments.py los instrumentos con los cuales se quiere trabajar indicando el ticker del futuro como llave y el ticker
+_Para poder consultar las cotizaciónes es neceario completar los datos de autenticación con la cuenta de remarkets en el archivo remarket_auth.py_
+
+```
+USER = "toledogji6687"
+PASSWORD = "tgjdyZ5!"
+ACCOUNT = "REM6687"
+```
+
+_Ademas se debe setear en el archivo instruments.py los instrumentos con los cuales se quiere trabajar indicando el ticker del futuro como llave y el ticker
 del instrumento en spot correspondiente a Yahoo Finance como valor (Ej: "GGAL/FEB22": "GGAL")_
 
 ```
@@ -24,6 +32,8 @@ instruments = {
     "DLR/FEB22": "ARS=X"
 }
 ```
+
+
 
 ## Ejecucion ⚙️
 
