@@ -11,7 +11,7 @@ pyRofex.initialize(user=ra.USER,
                    account=ra.ACCOUNT,
                    environment=pyRofex.Environment.REMARKET)
 
-cache = {
+ir_cache = {
     "lowest_ask_interest_rate" : None,
     "lair_ticker": None,
     "highest_bid_interest_rate" : None,
@@ -51,39 +51,39 @@ def market_data_handler(message):
     #Calculo las tasa de interes implicitas
    
     if(ask_price is not None):
-        ask_interest_rate = mo.interest_rate(spot_price, ask_price, maturity)
+        ask_interest_rate = mo.get_interest_rate(spot_price, ask_price, maturity)
         interest_rates[symbol]["ask_interest_rate"] = ask_interest_rate
 
-        if(cache["lowest_ask_interest_rate"] is None 
-            or cache["lowest_ask_interest_rate"] > ask_interest_rate ):
-            cache["lowest_ask_interest_rate"] = ask_interest_rate
-            cache["lair_ticker"] = symbol
+        if(ir_cache["lowest_ask_interest_rate"] is None 
+            or ir_cache["lowest_ask_interest_rate"] > ask_interest_rate ):
+            ir_cache["lowest_ask_interest_rate"] = ask_interest_rate
+            ir_cache["lair_ticker"] = symbol
             
-        if( cache["lair_ticker"] == symbol and 
-            cache["lowest_ask_interest_rate"] < ask_interest_rate):
+        if( ir_cache["lair_ticker"] == symbol and 
+            ir_cache["lowest_ask_interest_rate"] < ask_interest_rate):
             irates_result = mo.search_interest_rates(interest_rates)
-            cache["lowest_ask_interest_rate"] = irates_result["lair"]
-            cache["lair_ticker"] = irates_result["lair_ticker"]
+            ir_cache["lowest_ask_interest_rate"] = irates_result["lair"]
+            ir_cache["lair_ticker"] = irates_result["lair_ticker"]
 
         print("TASA IMPLICITA TOMADORA:", ask_interest_rate, '%')
         
     if(bid_price is not None):
-        bid_interest_rate = mo.interest_rate(spot_price, bid_price, maturity)
+        bid_interest_rate = mo.get_interest_rate(spot_price, bid_price, maturity)
         interest_rates[symbol]["bid_interest_rate"] = bid_interest_rate
 
-        if( cache["highest_bid_interest_rate"] is None 
-            or cache["highest_bid_interest_rate"] < bid_interest_rate):
-            cache["highest_bid_interest_rate"] = bid_interest_rate
-            cache["hbir_ticker"] = symbol
+        if( ir_cache["highest_bid_interest_rate"] is None 
+            or ir_cache["highest_bid_interest_rate"] < bid_interest_rate):
+            ir_cache["highest_bid_interest_rate"] = bid_interest_rate
+            ir_cache["hbir_ticker"] = symbol
 
-        if( cache["hbir_ticker"] == symbol and
-            cache["highest_bid_interest_rate"] > bid_interest_rate):
+        if( ir_cache["hbir_ticker"] == symbol and
+            ir_cache["highest_bid_interest_rate"] > bid_interest_rate):
             irates_result = mo.search_interest_rates(interest_rates)
-            cache["highest_bid_interest_rate"] = irates_result["hbir"]
-            cache["hbir_ticker"] = irates_result["hbir_ticker"]
+            ir_cache["highest_bid_interest_rate"] = irates_result["hbir"]
+            ir_cache["hbir_ticker"] = irates_result["hbir_ticker"]
 
         print("TASA IMPLICITA COLOCADORA:", bid_interest_rate, "%")
-    mo.search_arbitrage_oportunity(cache)
+    mo.search_arbitrage_oportunity(ir_cache)
 
 def error_handler(message):
     print("Error Message Received: {0}".format(message))
