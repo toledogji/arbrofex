@@ -19,7 +19,8 @@ def get_ask(ticker):
 def get_spot_price(symbol):
     ticker = yf.Ticker(symbol)
     todays_data = ticker.history(period='1d')
-    return todays_data['Close'][0]
+    spot_price = round(todays_data['Close'][0], 2)
+    return spot_price
 
 #Calculo la diferencia entre la fecha de vencimiento del instrumento y la fecha actual
 def date_diff(maturity_date):
