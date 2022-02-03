@@ -81,6 +81,7 @@ def market_data_handler(message):
             ir_cache["hbir_ticker"] = irates_result["hbir_ticker"]
 
         print("TASA IMPLICITA COLOCADORA:", bid_interest_rate, "%")
+
     mo.search_arbitrage_oportunity(ir_cache)
 
 def error_handler(message):
