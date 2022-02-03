@@ -50,8 +50,8 @@ def get_interest_rate(spot, future, maturity):
 #Evalua si hay una oportunidad de arbitraje 
 def search_arbitrage_oportunity(ir_cache):
     if(ir_cache["lowest_ask_interest_rate"] < ir_cache["highest_bid_interest_rate"]):
-        print("Oportunidad de arbitraje tomando en", ir_cache["lair_ticker"], "al", ir_cache["lowest_ask_interest_rate"], 
-                "y colocando en", ir_cache["hbir_ticker"], "al", ir_cache["highest_bid_interest_rate"])
+        print("Oportunidad de arbitraje tomando en", ir_cache["lair_ticker"], "al", ir_cache["lowest_ask_interest_rate"], '%' 
+                " y colocando en", ir_cache["hbir_ticker"], "al", ir_cache["highest_bid_interest_rate"], '%')
     else:
         print("No hay oportunidad de arbitraje")
 
