@@ -33,3 +33,12 @@ _Para correr el programa se debe ejecutar el siguiente comando por consola_
 ```
 py arbarofex.py
 ```
+
+## Test unitarios ⚙️
+
+_Para ejecutar el test unitaro sobre el modulo de operaciones de mercado se debe ejecutar el siguiente comando por consola_
+
+```
+python -m doctest -v market_operations.py
+
+```
